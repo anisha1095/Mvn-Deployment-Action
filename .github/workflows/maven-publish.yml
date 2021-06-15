@@ -27,7 +27,8 @@ jobs:
 #           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
       - if: github.event.release
         name: Update version in pom.xml (Release only)
-        run: mvn -B versions:set -DnewVersion=${{ github.event.release.tag_name }} -DgenerateBackupPoms=false
+        run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.nextMajorVersion}.0.0 versions:commit
+#         run: mvn -B versions:set -DnewVersion=${{ github.event.release.tag_name }} -DgenerateBackupPoms=false
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1.4.0
         with:
