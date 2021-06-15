@@ -25,6 +25,8 @@ jobs:
 #         env:
 #           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
 #           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+      - name: run tests
+        run : mvn test
       - if: github.event.release
         name: Update version in pom.xml (Release only)
         run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.nextMajorVersion}.0.0 versions:commit
