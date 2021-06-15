@@ -25,6 +25,8 @@ jobs:
 #         env:
 #           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
 #           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+      - name: run tests
+        run: mvn test
       - if: github.event.release
         name: Update version in pom.xml (Release only)
         run: mvn -B versions:set -DnewVersion=${{ github.event.release.tag_name }} -DgenerateBackupPoms=false
