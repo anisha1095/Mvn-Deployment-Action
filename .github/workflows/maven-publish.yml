@@ -27,9 +27,14 @@ jobs:
 #           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
       - name: run tests
         run: mvn test
-      - if: github.event.release
-        name: Update version in pom.xml (Release only)
-        run: mvn -B versions:set -DnewVersion=${{ github.event.release.tag_name }} -DgenerateBackupPoms=false
+#       - if: github.event.release
+#         name: Update version in pom.xml (Release only)
+#         run: mvn -B versions:set -DnewVersion=${{ github.event.release.tag_name }} -DgenerateBackupPoms=false
+      - name: Bump Version
+        id: bump
+        uses: nnichols/maven-version-bump-action@v3
+        with:
+          github-token: ${{ secrets.github_token }}
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1.4.0
         with:
