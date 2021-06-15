@@ -34,6 +34,7 @@ jobs:
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1.4.0
         with:
+            version-minor: true
             maven_profiles: deploy, verify
             gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
             gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
