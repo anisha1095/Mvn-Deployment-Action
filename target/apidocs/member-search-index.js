@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"<Unnamed>","c":"Hello","l":"getSum(List<Integer>)","u":"getSum(java.util.List)"},{"p":"<Unnamed>","c":"Hello","l":"Hello()","u":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"Hello","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();
