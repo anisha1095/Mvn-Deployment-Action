@@ -28,15 +28,19 @@ jobs:
       - name: run tests
         run : mvn test
 #       - if: github.event.release
-      - name: Update version in pom.xml 
-        run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.nextMajorVersion}.0.0 versions:commit
+#       - name: Update version in pom.xml 
+#         run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.nextMajorVersion}.0.0 versions:commit
 #         run: mvn -B versions:set -DnewVersion=${{ github.event.release.tag_name }} -DgenerateBackupPoms=false
-      - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1.4.0
-        with:
-            version-minor: true
-            maven_profiles: deploy, verify
-            gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-            gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
-            nexus_username: ${{ secrets.OSSRH_USERNAME }}
-            nexus_password: ${{ secrets.OSSRH_TOKEN }}
+#       - name: Release Maven package
+#         uses: samuelmeuli/action-maven-publish@v1.4.0
+#         with:
+#             version-minor: true
+#             maven_profiles: deploy, verify
+#             gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+#             gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
+#             nexus_username: ${{ secrets.OSSRH_USERNAME }}
+#             nexus_password: ${{ secrets.OSSRH_TOKEN }}
+      - name: Publish artifact on GitHub Packages
+        run: mvn -B clean deploy -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
