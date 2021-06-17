@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"<Unnamed>","c":"Hello","l":"getSum(List<Integer>)","u":"getSum(java.util.List)"},{"p":"<Unnamed>","c":"Hello","l":"Hello()","u":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"Hello","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();
+memberSearchIndex = [{"p":"<Unnamed>","c":"Hello","l":"getSum(List<Integer>)","url":"getSum(java.util.List)"},{"p":"<Unnamed>","c":"Hello","l":"Hello()","url":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"Hello","l":"main(String[])","url":"main(java.lang.String[])"}]
