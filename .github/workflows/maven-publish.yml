@@ -37,7 +37,7 @@ jobs:
       - name: Run Tests 
         run: mvn test
       - name: Maven Version Bump Action
-        uses: nnichols/maven-version-bump-action@v3
+        uses: ./version-bump.sh
 #       - name: Publish to Apache Maven Central
 #         run: mvn deploy
 #         env:
