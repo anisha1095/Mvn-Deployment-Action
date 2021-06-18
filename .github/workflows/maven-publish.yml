@@ -26,17 +26,17 @@ jobs:
           server-password: OSSRH_TOKEN # env variable for token in deploy
 #           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value of the GPG private key to import
 #           gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
-      - name: Set up GPG
-        run: |
-          echo "$GPG_PRIVATE_KEY" > private.asc
-          gpg --import --batch private.asc
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+#       - name: Set up GPG
+#         run: |
+#           echo "$GPG_PRIVATE_KEY" > private.asc
+#           gpg --import --batch private.asc
+#         env:
+#           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
       - name: Run Tests 
         run: mvn test
-      - name: Publish to Apache Maven Central
-        run: mvn deploy
-        env:
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
-          MAVEN_GPG_PASSPHRASE: ${ GPG_PRIVATE_KEY }
+#       - name: Publish to Apache Maven Central
+#         run: mvn deploy
+#         env:
+#           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+#           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+#           MAVEN_GPG_PASSPHRASE: ${ GPG_PRIVATE_KEY }
