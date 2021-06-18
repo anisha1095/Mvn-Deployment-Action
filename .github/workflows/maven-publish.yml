@@ -34,6 +34,14 @@ jobs:
 #           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
       - name: Run Tests 
         run: mvn test
+      - name: Bump Version
+        id: bump
+        uses: nnichols/maven-version-bump-action@v3
+        with:
+          github-token: ${{ secrets.github_token }}
+
+      - name: Print Version
+        run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
 #       - name: Publish to Apache Maven Central
 #         run: mvn deploy
 #         env:
