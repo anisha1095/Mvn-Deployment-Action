@@ -10,7 +10,7 @@ on:
 jobs:
     publish:
       runs-on: windows-latest
-      steps:
+      steps: 
       - uses: actions/checkout@v2
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v2
