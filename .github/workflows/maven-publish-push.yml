@@ -1,0 +1,23 @@
+name: mavendepf
+
+on:
+  push: 
+    branches: 
+      - '*'   
+
+jobs:
+    publish:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout Source Code and checkout
+        uses: actions/checkout@v2
+        with:
+         persist-credentials: false
+         fetch-depth: 0
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Run Tests 
+        run: mvn test
