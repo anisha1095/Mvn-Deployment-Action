@@ -37,6 +37,10 @@ jobs:
         run: mvn test
       - name: Maven Version Bump Action
         uses: nnichols/maven-version-bump-action@v3
+        with:
+          github-token: ${{ secrets.github_token }}
+      - name: Print Version
+        run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
       - id: publish-to-central
         name: Publish to Central Repository
         env:
