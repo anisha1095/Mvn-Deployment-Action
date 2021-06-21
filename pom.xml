@@ -27,6 +27,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
@@ -59,6 +60,7 @@
             <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
