@@ -36,7 +36,7 @@ jobs:
       - name: Run Tests 
         run: mvn test
       - name: Maven Version Bump Action
-        uses: ./version-bump.sh
+        uses: nnichols/maven-version-bump-action@v3
       - id: publish-to-central
         name: Publish to Central Repository
         env:
