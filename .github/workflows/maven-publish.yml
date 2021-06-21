@@ -12,12 +12,15 @@ on:
 jobs:
     publish:
       runs-on: ubuntu-latest
-      permissions: 
-        contents: read 
-        packages: write 
+#       permissions: 
+#         contents: read 
+#         packages: write 
       steps:
       - name: Checkout Source Code and checkout
         uses: actions/checkout@v2
+        with:
+         persist-credentials: false
+         fetch-depth: 0
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v2
         with:
@@ -36,7 +39,15 @@ jobs:
       - name: Run Tests 
         run: mvn test
       - name: Maven Version Bump Action
-        uses: nnichols/maven-version-bump-action@v3
+        uses: nnichols/maven-version-bump-action@v2
+        with:
+          github-token: ${{ secrets.github_token }}
+        env:
+          JAVA_HOME: /usr/local/openjdk-11
+#           git-email: anisha.jauhari@corteva.com
+#           git-username: anisha1095 
+      - name: Print Version
+        run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
       - id: publish-to-central
         name: Publish to Central Repository
         env:
