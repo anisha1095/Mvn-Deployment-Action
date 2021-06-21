@@ -7,8 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="mavenDeploymentTest" />
-        <module name="mavenDeploymentTest_2" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mavenDeploymentTest_2" target="16" />
+    </bytecodeTargetLevel>
   </component>
 </project>

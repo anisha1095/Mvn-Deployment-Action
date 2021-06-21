@@ -1,29 +1,61 @@
 # This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
 
-name: mavendep
+name: mavendepf
 
 on:
-  push:
-    branches: [main, release]
+  pull_request: 
+    types: [closed]
+    branches: [main]
 
 jobs:
     publish:
-      runs-on: windows-latest
-      steps: 
-      - uses: actions/checkout@v2
+      runs-on: ubuntu-latest
+#       permissions: 
+#         contents: read 
+#         packages: write 
+      steps:
+      - name: Checkout Source Code and checkout
+        uses: actions/checkout@v2
+        with:
+         persist-credentials: false
+         fetch-depth: 0
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v2
         with:
-          java-version: 1.8
+          java-version: '11'
           distribution: 'adopt'
-          server-id: ossrh
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
-      - name: Run Tests
+          server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
+          server-username: MAVEN_USERNAME # env variable for username in deploy
+          server-password: MAVEN_PASSWORD # env variable for token in deploy
+#           gpg-private-key: ${{ secrets.GPG_PASSPHRASE }} # Value of the GPG private key to import
+#           gpg-passphrase: GPG_PASSPHRASE # env variable for GPG private key passphrase
+      - id: install-secret-key
+        name: Install gpg secret key
+        run: |
+          cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
+      - name: Run Tests 
         run: mvn test
-      - name: Publish package
-        run: mvn --batch-mode deploy
+      - name: Maven Version Bump Action
+        uses: nnichols/maven-version-bump-action@v2
+        with:
+          github-token: ${{ secrets.github_token }}
         env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          JAVA_HOME: /usr/local/openjdk-11
+#           git-email: anisha.jauhari@corteva.com
+#           git-username: anisha1095 
+      - name: Print Version
+        run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
+      - id: publish-to-central
+        name: Publish to Central Repository
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+        run: |
+          mvn \
+            --no-transfer-progress \
+            --batch-mode \
+            -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
+            clean deploy
+
