@@ -6,7 +6,7 @@
 
     <groupId>io.github.anisha1095</groupId>
     <artifactId>mavenDeploymentTest</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>Maven Dependency</name>
