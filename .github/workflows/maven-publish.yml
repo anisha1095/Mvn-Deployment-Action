@@ -4,9 +4,8 @@
 name: mavendepf
 
 on:
-  push:
-    branches: [main, release]
   pull_request: 
+    types: [closed]
     branches: [main]
 
 jobs:
