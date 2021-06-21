@@ -42,6 +42,8 @@ jobs:
         uses: nnichols/maven-version-bump-action@v2
         with:
           github-token: ${{ secrets.github_token }}
+        env:
+          JAVA_HOME: /usr/local/openjdk-11
 #           git-email: anisha.jauhari@corteva.com
 #           git-username: anisha1095 
       - name: Print Version
