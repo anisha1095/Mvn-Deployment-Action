@@ -44,7 +44,7 @@ jobs:
           github-token: ${{ secrets.GIT_TOKEN }}
           git-email: anisha.jauhari@corteva.com
           git-username: anisha1095 
-          pom-path: mavenDeploymentTest/
+          pom-path: .
       - name: Print Version
         run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
       - id: publish-to-central
