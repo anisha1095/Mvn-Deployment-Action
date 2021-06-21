@@ -1,7 +1,7 @@
 # This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
 
-name: mavendep
+name: mavendepf
 
 on:
   push:
@@ -11,12 +11,12 @@ on:
 
 jobs:
     publish:
-      runs-on: windows-latest
+      runs-on: ubuntu-latest
       permissions: 
-        contents: read
+        contents: read 
         packages: write 
       steps:
-      - name: Checkout Source Code
+      - name: Checkout Source Code and checkout
         uses: actions/checkout@v2
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v2
@@ -24,8 +24,8 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
-#           server-username: MAVEN_USERNAME # env variable for username in deploy
-#           server-password: MAVEN_PASSWORD # env variable for token in deploy
+          server-username: MAVEN_USERNAME # env variable for username in deploy
+          server-password: MAVEN_PASSWORD # env variable for token in deploy
 #           gpg-private-key: ${{ secrets.GPG_PASSPHRASE }} # Value of the GPG private key to import
 #           gpg-passphrase: GPG_PASSPHRASE # env variable for GPG private key passphrase
       - id: install-secret-key
@@ -35,8 +35,8 @@ jobs:
           gpg --list-secret-keys --keyid-format LONG
       - name: Run Tests 
         run: mvn test
-#       - name: Maven Version Bump Action
-#         uses: ./version-bump.sh
+      - name: Maven Version Bump Action
+        uses: nnichols/maven-version-bump-action@v3
       - id: publish-to-central
         name: Publish to Central Repository
         env:
