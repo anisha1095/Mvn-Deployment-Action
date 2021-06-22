@@ -1,4 +1,4 @@
-name: mavendepf
+name: maven_pre_checks
 
 on:
   push: 
