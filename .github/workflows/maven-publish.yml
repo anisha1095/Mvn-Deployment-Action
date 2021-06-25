@@ -58,4 +58,6 @@ jobs:
             --batch-mode \
             -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
             clean deploy
+      - name: Update README
+        run : mvn resources:resources
 
