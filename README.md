@@ -1,4 +1,4 @@
-# mavenDeploymentTest
+# Maven Deployment Test With Automatic Versioning
 
 This is a maven deployment test application that pushes changes to maven central repository using Github Actions. <br>
 No More `mvn clean deploy` commands needed. <br>
